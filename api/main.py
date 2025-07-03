@@ -1,14 +1,17 @@
 from fastapi import FastAPI, Query, HTTPException
 from typing import Optional
 import pandas as pd
+from mangum import Mangum
+import os
 
 app = FastAPI()
 
-# Load CSVs
-province_df = pd.read_csv("data/CambodiaProvinceList2023.csv", dtype=str)
-district_df = pd.read_csv("data/CambodiaDistrictList2023.csv", dtype=str)
-commune_df = pd.read_csv("data/CambodiaCommuneList2023.csv", dtype=str)
-village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
+base_path = os.path.dirname(__file__)
+
+province_df = pd.read_csv(os.path.join(base_path, "data/CambodiaProvinceList2023.csv"), dtype=str)
+district_df = pd.read_csv(os.path.join(base_path, "data/CambodiaDistrictList2023.csv"), dtype=str)
+commune_df = pd.read_csv(os.path.join(base_path, "data/CambodiaCommuneList2023.csv"), dtype=str)
+village_df = pd.read_csv(os.path.join(base_path, "data/CambodiaVillagesList2023.csv"), dtype=str)
 
 @app.get("/locations")
 def get_locations(
@@ -16,16 +19,13 @@ def get_locations(
     district: Optional[str] = Query(None),
     commune: Optional[str] = Query(None)
 ):
-    # 1. No query — return all provinces
     if province is None:
         return province_df[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-    # 2. province only — return all districts
     if province and district is None and commune is None:
         districts = district_df[district_df["province_code"] == province]
         return districts[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-    # 3. province + district — return all communes
     if province and district and commune is None:
         communes = commune_df[
             (commune_df["province_code"] == province) &
@@ -33,7 +33,6 @@ def get_locations(
         ]
         return communes[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-    # 4. province + district + commune — return all villages
     if province and district and commune:
         villages = village_df[
             (village_df["province_code"] == province) &
@@ -42,5 +41,7 @@ def get_locations(
         ]
         return villages[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-    # If invalid combo
     raise HTTPException(status_code=400, detail="Invalid query combination")
+
+# 👇 Required for Vercel
+handler = Mangum(app)
