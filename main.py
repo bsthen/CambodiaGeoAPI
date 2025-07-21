@@ -16,11 +16,6 @@ village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
 def not_found_redirect(request, exc):
     return RedirectResponse(url="/docs")
 
-# Redirect / to /docs
-@app.get("/")
-def redirect_to_docs():
-   return RedirectResponse(url="/docs")
-
 @app.get("/locations")
 def get_locations(
     province: Optional[str] = Query(None),
