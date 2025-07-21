@@ -6,6 +6,14 @@ import asyncio
 
 app = FastAPI()
 
+app = FastAPI( 
+        title="Khmer Geo Locations API", 
+        version="1.0.1", 
+        description="This is the API for Geo Location, which provides information about provinces, districts, communes, and villages in Cambodia. Source data is from the General Department of Digital Economy (https://data.mef.gov.kh/)", 
+        root_path_in_servers = True,
+        root_path="/v1"
+    )
+
 # Load CSV files once into memory at startup
 province_df = pd.read_csv("data/CambodiaProvinceList2023.csv", dtype=str)
 district_df = pd.read_csv("data/CambodiaDistrictList2023.csv", dtype=str)
@@ -14,9 +22,9 @@ village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
 
 @app.exception_handler(404)
 async def not_found_redirect(request: Request, exc: HTTPException):
-    return RedirectResponse(url="/docs")
+    return RedirectResponse(url="/v1/docs")
 
-@app.get("/v1/2023/locations")
+@app.get("/locations")
 async def get_locations(
     province: Optional[str] = Query(None),
     district: Optional[str] = Query(None),
