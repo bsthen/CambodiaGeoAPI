@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Query, HTTPException
+from fastapi.responses import RedirectResponse
 from typing import Optional
 import pandas as pd
 
@@ -9,6 +10,16 @@ province_df = pd.read_csv("data/CambodiaProvinceList2023.csv", dtype=str)
 district_df = pd.read_csv("data/CambodiaDistrictList2023.csv", dtype=str)
 commune_df = pd.read_csv("data/CambodiaCommuneList2023.csv", dtype=str)
 village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
+
+# Redirect 404 to /docs
+@app.exception_handler(404)
+def not_found_redirect(request, exc):
+    return RedirectResponse(url="/docs")
+
+# Redirect / to /docs
+@app.get("/")
+def redirect_to_docs():
+   return RedirectResponse(url="/docs")
 
 @app.get("/locations")
 def get_locations(
