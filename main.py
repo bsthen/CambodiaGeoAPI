@@ -9,7 +9,7 @@ app = FastAPI()
 app = FastAPI( 
         title="Khmer Geo Locations API", 
         version="1.0.1", 
-        description="This is the API for Geo Location, which provides information about provinces, districts, communes, and villages in Cambodia. Source data is from the General Department of Digital Economy (https://data.mef.gov.kh/)", 
+        description="This is the API for Geo Location, which provides information about provinces, districts, communes, and villages in Cambodia. \nSource data is from the General Department of Digital Economy (https://data.mef.gov.kh/)", 
         root_path_in_servers = True,
         root_path="/v1"
     )
