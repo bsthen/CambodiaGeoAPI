@@ -30,6 +30,18 @@ async def get_locations(
     district: Optional[str] = Query(None),
     commune: Optional[str] = Query(None),
 ):
+    
+    # Info
+    """
+    Get locations based on the provided filters.
+    - `province`: Filter by province code (optional).
+    - `district`: Filter by district code (optional).
+    - `commune`: Filter by commune code (optional).
+    Returns a list of locations matching the filters.
+    
+    Example usage: https://api.khmer.asia/v1/locations?province=12&district=1210&commune=121001
+    """
+    
     # Define blocking filter logic
     def filter_locations():
         if province is None:
