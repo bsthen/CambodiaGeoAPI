@@ -7,11 +7,17 @@ import asyncio
 app = FastAPI()
 
 app = FastAPI( 
-        title="Khmer Geo Locations API", 
-        version="1.0.1", 
-        description="This is the API for Geo Location, which provides information about provinces, districts, communes, and villages in Cambodia. Source data is from the General Department of Digital Economy (https://data.mef.gov.kh/)", 
+        title="Khmer Geo Locations - API", 
+        version="1.0.6",
+        summary="API for Geo Location in Cambodia",
+        contact={
+            "name": "bsthen",
+            "url": "https://github.com/bsthen",
+        },
+        description="Geo Location, which provides information about provinces, districts, communes, and villages in Cambodia. \n\nSource data is from the General Department of Digital Economy (https://data.mef.gov.kh/)", 
         root_path_in_servers = True,
-        root_path="/v1"
+        root_path="/v1",
+        terms_of_service="https://data.mef.gov.kh/terms-of-use",
     )
 
 # Load CSV files once into memory at startup
