@@ -26,9 +26,9 @@ async def not_found_redirect(request: Request, exc: HTTPException):
 
 @app.get("/locations")
 async def get_locations(
-    province: Optional[str] = Query(None),
-    district: Optional[str] = Query(None),
-    commune: Optional[str] = Query(None),
+    province: Optional[int] = Query(None),
+    district: Optional[int] = Query(None),
+    commune: Optional[int] = Query(None),
 ):
     
     # Info
