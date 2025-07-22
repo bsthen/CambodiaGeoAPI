@@ -1,4 +1,4 @@
-# 🇰🇭 Khmer Geo Locations API
+# 🇰🇭 Cambodia Geo Locations API
 
 A public FastAPI-powered API for retrieving **geographic administrative data of Cambodia**, including **provinces**, **districts**, **communes**, and **villages**.
 
