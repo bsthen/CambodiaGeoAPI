@@ -7,7 +7,7 @@ import asyncio
 app = FastAPI()
 
 app = FastAPI( 
-        title="Khmer Geo Locations - API", 
+        title="Cambodia Geo Locations - API", 
         version="1.0.6",
         summary="API for Geo Location in Cambodia",
         contact={
