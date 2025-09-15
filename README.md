@@ -10,11 +10,11 @@ A public FastAPI-powered API for retrieving **geographic administrative data of 
 
 **Base URL:**
 
-[https://api.khmer.asia/v1](https://api.khmer.asia/v1)
+[http://localhost:8000/v1](http://localhost:8000/v1)
 
 **Interactive Docs:**
 
-[https://api.khmer.asia/v1/docs](https://api.khmer.asia/v1/docs)
+[http://localhost:8000/v1/docs](http://localhost:8000/v1/docs)
 
 ---
 
