@@ -4,8 +4,6 @@ from typing import Optional
 import pandas as pd
 import asyncio
 
-app = FastAPI()
-
 app = FastAPI( 
         title="Cambodia Geo Locations - API", 
         version="1.0.6",
