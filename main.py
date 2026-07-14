@@ -19,16 +19,16 @@ app = FastAPI(
     )
 
 # Load CSV files once into memory at startup
-province_df = pd.read_csv("data/CambodiaProvinceList2023.csv", dtype=str)
-district_df = pd.read_csv("data/CambodiaDistrictList2023.csv", dtype=str)
-commune_df = pd.read_csv("data/CambodiaCommuneList2023.csv", dtype=str)
-village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
+province_df = pd.read_csv("data/2025/CambodiaProvinceList2025.csv", dtype=str)
+district_df = pd.read_csv("data/2025/CambodiaDistrictList2025.csv", dtype=str)
+commune_df = pd.read_csv("data/2025/CambodiaCommuneList2025.csv", dtype=str)
+village_df = pd.read_csv("data/2025/CambodiaVillagesList2025.csv", dtype=str)
 
 @app.exception_handler(404)
 async def not_found_redirect(request: Request, exc: HTTPException):
     return RedirectResponse(url="/v1/docs")
 
-@app.get("/locations", tags="Geo Location APIs")
+@app.get("/locations", tags=["Geo Location APIs"])
 async def get_locations(
     province: Optional[str] = Query(None),
     p: Optional[str] = Query(None, description="Short for province code"),
