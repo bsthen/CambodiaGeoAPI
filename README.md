@@ -6,16 +6,35 @@ A public FastAPI-powered API for retrieving **geographic administrative data of 
 
 ---
 
-## 🚀 Demo
+## 🚀 Demo (local)
 
 **Base URL:**
 
-[http://localhost:8000/v1](http://localhost:8000/v1)
+[http://localhost:8000/v1/](http://localhost:8000/v1/)
 
 **Interactive Docs:**
 
-[http://localhost:8000/v1/docs](http://localhost:8000/v1/docs)
+[http://localhost:8000/v1/docs/](http://localhost:8000/v1/docs/)
 
+**Interactive ReDoc:**
+
+[http://localhost:8000/v1/redoc/](http://localhost:8000/v1/redoc/)
+
+---
+
+## 🚀 Demo (public)
+
+**Base URL:**
+
+[https://cambodia-geo-api.bsthen.com/v1/](https://cambodia-geo-api.bsthen.com/v1/)
+
+**Interactive Docs:**
+
+[https://cambodia-geo-api.bsthen.com/v1/docs/](https://cambodia-geo-api.bsthen.com/v1/docs/)
+
+**Interactive ReDoc:**
+
+[https://cambodia-geo-api.bsthen.com/v1/redoc/](https://cambodia-geo-api.bsthen.com/v1/redoc/)
 ---
 
 ## 📦 Features
