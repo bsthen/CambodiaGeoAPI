@@ -28,11 +28,14 @@ village_df = pd.read_csv("data/CambodiaVillagesList2023.csv", dtype=str)
 async def not_found_redirect(request: Request, exc: HTTPException):
     return RedirectResponse(url="/v1/docs")
 
-@app.get("/locations")
+@app.get("/locations", tags="Geo Location APIs")
 async def get_locations(
     province: Optional[str] = Query(None),
+    p: Optional[str] = Query(None, description="Short for province code"),
     district: Optional[str] = Query(None),
+    d: Optional[str] = Query(None, description="Short for district code"),
     commune: Optional[str] = Query(None),
+    c: Optional[str] = Query(None, description="Short for commune code"),
 ):
     
     # Info
@@ -44,30 +47,34 @@ async def get_locations(
     
     Returns a list of locations matching the filters.
     
-    Example usage: https://api.khmer.asia/v1/locations?province=12&district=1210&commune=121001
+    Example usage: https://cambodia-geo-api.bsthen.com/v1/locations?province=12&district=1210&commune=121001
     """
+    
+    active_province = province or p
+    active_district = district or d
+    active_commune = commune or c
     
     # Define blocking filter logic
     def filter_locations():
-        if province is None:
+        if active_province is None:
             return province_df[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-        if province and district is None and commune is None:
-            filtered = district_df[district_df["province_code"] == province]
+        if active_province and active_district is None and active_commune is None:
+            filtered = district_df[district_df["province_code"] == active_province]
             return filtered[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-        if province and district and commune is None:
+        if active_province and active_district and active_commune is None:
             filtered = commune_df[
-                (commune_df["province_code"] == province) &
-                (commune_df["district_code"] == district)
+                (commune_df["province_code"] == active_province) &
+                (commune_df["district_code"] == active_district)
             ]
             return filtered[["code", "name_en", "name_km"]].to_dict(orient="records")
 
-        if province and district and commune:
+        if active_province and active_district and active_commune:
             filtered = village_df[
-                (village_df["province_code"] == province) &
-                (village_df["district_code"] == district) &
-                (village_df["commune_code"] == commune)
+                (village_df["province_code"] == active_province) &
+                (village_df["district_code"] == active_district) &
+                (village_df["commune_code"] == active_commune)
             ]
             return filtered[["code", "name_en", "name_km"]].to_dict(orient="records")
 
